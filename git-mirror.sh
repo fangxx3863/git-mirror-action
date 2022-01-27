@@ -30,6 +30,7 @@ done
 cd Origin
 rm -rf .git
 rm -rf .github
+rm update
 cd ..
 cp -rf Origin/. Target/
 
