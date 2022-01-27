@@ -35,6 +35,8 @@ cp -rf Origin/ Target/
 
 
 cd Target
+git config --global user.name "fangxx3863"
+git config --global user.email fang82099599@gmail.com
 git add .
 git commit -m "Auto Update"
 git push origin master
