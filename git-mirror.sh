@@ -13,16 +13,29 @@ echo "SOURCE=$SOURCE_REPO"
 echo "DESTINATION=$DESTINATION_REPO"
 echo "DRY RUN=$DRY_RUN"
 
-git clone --mirror "$SOURCE_REPO" "$SOURCE_DIR" && cd "$SOURCE_DIR"
-git remote set-url --push origin "$DESTINATION_REPO"
-git fetch -p origin
-# Exclude refs created by GitHub for pull request.
-git for-each-ref --format 'delete %(refname)' refs/pull | git update-ref --stdin
+mkdir Temp
+cd Temp
+origin_fail_count=1
+while ! git clone $SOURCE_REPO Origin; do
+    [ $origin_fail_count -ge 20 ] && echo "Git Clone Origin Failed!" && exit 1 || let origin_fail_count++
+    sleep 1
+done
 
-if [ "$DRY_RUN" = "true" ]
-then
-    echo "INFO: Dry Run, no data is pushed"
-    git push --mirror --dry-run
-else
-    git push --mirror
-fi
+target_fail_count=1
+while ! git clone $DESTINATION_REPO Target; do
+    [ $target_fail_count -ge 20 ] && echo "Git Clone Target Failed!" && exit 1 || let target_fail_count++
+    sleep 1
+done
+
+cd Origin
+rm -rf .git
+rm -rf .github
+cd ..
+cp -rf Origin/* Target/*
+
+
+cd Target
+git add .
+git commit -m "Auto Update"
+git push origin master
+echo "Finish!"
