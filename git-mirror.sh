@@ -72,15 +72,15 @@ echo "file:$FILE prefix:$FILE_PREFIX size:$SIZE rows:$ROWS FLOOR:$FLOOR CEIL:$CE
 # 先按整除的迭代
 for i in `seq 1 $FLOOR`; do
     LOAD_CNT=$((i*$SIZE))
-    echo "head -$LOAD_CNT $FILE | tail -$SIZE > ${FILE_PREFIX}_$i.part1"
+    echo "head -$LOAD_CNT $FILE | tail -$SIZE > ${FILE_PREFIX}_$i.part2"
     # execute split file
-    head -$LOAD_CNT $FILE | tail -$SIZE > ${FILE_PREFIX}_$i.part1
+    head -$LOAD_CNT $FILE | tail -$SIZE > ${FILE_PREFIX}_$i.part2
 done
 # 如果最后还有余数
 if [[ $FLOOR != $CEIL ]]; then
     LEFT_ROWS=$(( $ROWS - $FLOOR*$SIZE ))
-    echo "tail -$LEFT_ROWS $FILE > ${FILE_PREFIX}_$CEIL.part1"
-    tail -$LEFT_ROWS $FILE > ${FILE_PREFIX}_$CEIL.part1
+    echo "tail -$LEFT_ROWS $FILE > ${FILE_PREFIX}_$CEIL.part2"
+    tail -$LEFT_ROWS $FILE > ${FILE_PREFIX}_$CEIL.part2
 fi
 cd ..
 
