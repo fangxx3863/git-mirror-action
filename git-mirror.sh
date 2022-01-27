@@ -31,7 +31,7 @@ cd Origin
 rm -rf .git
 rm -rf .github
 cd ..
-cp -rf Origin/ Target/
+cp -rf Origin/. Target/
 
 
 cd Target
