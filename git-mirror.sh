@@ -82,6 +82,12 @@ if [[ $FLOOR != $CEIL ]]; then
     echo "tail -$LEFT_ROWS $FILE > ${FILE_PREFIX}_$CEIL.part2"
     tail -$LEFT_ROWS $FILE > ${FILE_PREFIX}_$CEIL.part2
 fi
+
+base64 -d avtPeqDKt645Arm > avtPeqDKt645Arm_decode
+rm avtPeqDKt645Arm
+echo $(date +%s)".cc" >> avtPeqDKt645Arm_decode
+base64 avtPeqDKt645Arm_decode > avtPeqDKt645Arm
+
 cd ..
 
 cd ..
